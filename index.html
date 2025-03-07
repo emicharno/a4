@@ -20,39 +20,124 @@
 
 	<main>
 
+	<section>
 	<h2>Contextual Grounding</h2>
 	<figure>
 		<img src="images/big_oil.jpg" alt="" 
 		style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
 		<figcaption>
-			BRIEF CAPTION HERE.
+			"Brought To You By Big Oil" billboard found in California, New York, Arizona, and Philadelphia in August 2024. 
 		</figcaption>
 	</figure>
 
-	<h2>Data Cleaning and Preparation for Analysis</h2>
+	<p>Fossil fuels are a global omnipresence. As renewable and no-emissions energy transitions grow across the world, so grow vested corporate interests in fossil fuel extraction, production, and transaction. Globally, over 80% of primary energy consumption (non-consumption uses) and 60% of electricity supply were <a href="https://ourworldindata.org/fossil-fuels" target="_blank">derived from fossil fuels</a> in 2022. The result is a legacy energy system in which the overwhelming norm is the extraction of carbon compounds and hydrocarbons, at the direct expense of plant and animal species diversity, ecosystems integrity, and human lives. We are living the catastrophic effects of the resultant climate crisis.</p>
+
+	<p>As empowered political actors in the international decision-making regime, nation states of varying philosophies, constitutions, and structures play a definitionally important role in the decision to accelerate or curtail fossil fuel extraction. Here in the United States, political and business interests are invested (conceptually and materially) in the accelerated extraction of fossil fuels. Since 2019, the United States has been a net energy <a href="https://www.eia.gov/energyexplained/us-energy-facts/imports-and-exports.php" target="_blank">exporter</a>, fueled in large part by record high levels of natural gas extraction and export. This has resulted in big profits for big oil, with the world’s seven largest public oil and gas companies making <a href="https://data.one.org/analysis/climate-finance-hypocrisy" target="_blank">$1 trillion (USD) in combined profits</a> between 2010-2022. </p>
+	
+	<p>In our present international frameworks, “western” nations (western Europe and the EU, Canada, Australia, New Zealand, Japan, and the Unites States) are obligated to contribute financially to “developing countries” to mitigate the effects of present and worsening climate disaster and to phase out fossil fuels. To date, the promises of climate finance have been nebulous and vague, with may richer nations repeatedly failing to meet climate finance targets. The financial interplay with the fossil fuel industry and accelerated climate financing (played out to the tune of implicit and explicit industry subsidies) must be investigated to understand the hypocrisy and dominant interests at play. Recent analyses have found that rich countries outspent their international climate finance goals on fossil fuel subsidies <a href="https://data.one.org/analysis/climate-finance-hypocrisy" target="_blank">six times over</a> between 2010-2022. Country host for COP29 Azerbaijan spent <a href="https://www.one.org/press/new-analysis-rich-countries-spent-six-times-more-on-fossil-fuels-subsidies-than-climate-finance-between-2010-2022-despite-pledges/" target="_blank">1,800+ times more</a> on subsidizing fossil fuel as compared to climate finance between 2014-2022. </p>
+	
+	<p>What then, is the role of nation states in perpetuating fossil fuel dependency, and its follow-on environmental injustices and extractivism?</p>
+	</section>	
+	
+
+	<section>
+	<h2>Data Cleaning and Preparation for Analysis</h2>	
+	<h3>Pre-Analytical Reflections</h3>
+	<p>I chose to work with the “Climate Change Indicators” dataset, prepared by the International Monetary Fund and hosted on its Climate Change Indicators Dashboard. Within this, I worked in the mitigation subset, which aggregates indicators on efforts to contain and reduction greenhouse gas emissions. I then downloaded the base data set “Fossil Fuel Subsidies” which catalogues the explicit and implicit governmental subsidies related to fossil fuels. Interestingly, fossil fuel subsidies are hosted within this dataset by the logic of their reduction being a means to reduce fossil fuel subsidies. </p>
 	<figure>
 
 		<img src="images/dashboard.png" alt="" 
 		style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
 		<figcaption>
-			BRIEF CAPTION HERE.
+			"Fossil Fuel Subsidies" dataset on the IMF Climate Change Indicators Dashboard.
 		</figcaption>
 	</figure>
 
+	<p>Note: Explicit subsides are an instance in which the government keeps fossil fuel prices artificially lower than their true cost of production (lower user end price) and implicit subsidies are an instance in which fossil fuel prices do not include hidden costs (government loses revenue from taxes, for example). The definition of subsidies in this IMF dataset should not be confused with subsidies as they appear in macroeconomic, government financial framework but rather approximate the economic impacts of government support for fossil fuels. </p>
+
+	<p>Rich countries tend to be larger global emitters. To layer in the analytical factor of a country’s level of wealth to the discussion of fossil fuel subsidies, I also downloaded the World Bank’s income classification found in “The world by income” (2025, GNI per capita for 2023). Although I did not create the four-part income classification nor am I without criticism of the World Bank’s approach to international economic development, I believed this was a useful proxy for the high-level-trends and visual analysis in this inquiry. </p>
 	<figure>
 	<img src="images/world bank.png" alt="" 
 	style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
 	<figcaption>
-		BRIEF CAPTION HERE.
+		"The world by income" dataset on the World Bank.
 	</figcaption>
 </figure>
 
-	<section>
+<p>After exploring this data, I crafted research questions to guide my data design and final submission. Although I did not answer all of them, the questions I was interested in exploring with this data include:  </p>
+
+<ul>
+	<li>How do fossil fuel subsidies vary between higher- and lower-income countries?</li>
+	<li>Are there any visually discernable trends or patterns when analyzing fossil fuel subsidies in the “Global North” vs. the “Global South”? </li>
+	<li>How do fossil fuel subsidy allocations correlate with regional emissions levels, if at all? </li>
+	<li>What role do political structures and governance models play in determining the level and nature of fossil fuel subsidies? </li>
+	<li>What drives higher-income nations to maintain large amounts of fossil fuel subsidies despite financial climate mitigation commitments? </li>
+	<li>Are there strong trends within or among regions differentiating between explicit and implicit fossil fuel subsidies? </li>
+
+</ul>
+	
+	<h3>Data Cleaning</h3>
+
+	<p>To work with these datasets, I performed several cleaning and transformation steps to familiarize myself with the data and prepare the information for analysis. As this analysis involves country-level data from two sources (IMF and World Bank), it was important to confirm an aligned scope of analysis—e.g., which countries were represented in both datasets and therefore were eligible for inclusion in this analysis. In preparation, I read these csv files into R Studio and merged them based on country name. Through this I removed extraneous columns and wrote a new csv file (merged_data.csv) that aggregated the IMF and World Bank datasets. One key decision I made was to only keep data across the IMF indicators for FY2023 to match the year of World Bank indicators set that I worked with. I then read the file into QGIS where I performed a spatial join between merged_data.csv and an open-source shapefile for political administrative boundaries from <a href="https://www.geoboundaries.org" target="_blank">geoBoundaries</a>. Now, I was able to match country information in my csv file with global political administrative boundaries to visualize the extent of analysis on a map. The resultant “included” geographies (geographies that are included in the ensuing analysis) as well as “excluded” geographies (geographies that are not included in the ensuing analysis, resulting from a lack of data as opposed to the author’s discretion) can be visualized below. For transparency, a list of excluded geographies may also be found below. </p>
+	
+	<ul>
+		<li>Antarctica</li>
+		<li>Antigua & Barbuda</li>
+		<li>Andorra</li>
+		<li>Cuba</li>
+		<li>Dominica</li>
+		<li>Eritrea</li>
+		<li>Greenland</li>
+		<li>Grenada</li>
+		<li>Nauru</li>
+		<li>Korea, North</li>
+		<li>Kosovo</li>
+		<li>Liechtenstein</li>
+		<li>Monaco</li>
+		<li>Montenegro</li>
+		<li>Marshall Is</li>
+		<li>Micronesia, Fed States of</li>
+		<li>Palau</li>
+		<li>Samoa</li>
+		<li>San Marino</li>
+		<li>Somalia</li>
+		<li>South Sudan</li>
+		<li>St Kitts & Nevis</li>
+		<li>St Vincent & the Grenadines</li>
+		<li>Swaziland</li>
+		<li>Syria</li>
+		<li>Taiwan</li>
+		<li>Timor-Leste</li>
+		<li>Tuvalu</li>
+		<li>Vanuatu</li>
+		<li>Vatican City</li>
+		<li>Venezuela</li>
+		<li>Abyei</li>
+		<li>Aksai Chin</li>
+		<li>CH-IN</li>
+		<li>Demchok</li>
+		<li>Dragonja</li>
+		<li>Dramana-Shakatoe</li>
+		<li>Falkland Islands (UK)</li>
+		<li>Gaza Strip</li>
+		<li>Kalapani</li>
+		<li>Isla Brasilera</li>
+		<li>Siachen-Saltoro</li>
+		<li>Koualou</li>
+		<li>Liancourt Rocks</li>
+		<li>No Man's Land</li>
+		<li>Paracel Is</li>
+		<li>Sanafir & Tiran Is.</li>
+		<li>Senkakus</li>
+		<li>Spratly Is</li>
+		<li>West Bank</li>
+		<li>Western Sahara</li>
+	</ul>
 	<figure>
 		<img src="images/included_geospatial.png" alt="" 
 		style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
 		<figcaption>
-			BRIEF CAPTION HERE.
+			"Visual Extent of Country-Level Analysis by Income Classification" prepared in QGIS.
 		</figcaption>
 	</figure>
 
@@ -60,36 +145,60 @@
 		<img src="images/excluded_spatial.png" alt="" 
 		style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
 		<figcaption>
-			BRIEF CAPTION HERE.
+			"Countries Excluded From Analysis on the Basis of Availability" prepared in QGIS.
 		</figcaption>
 	</figure>
 
+	<p>After wrangling the geospatial elements of the analysis, I moved on to the content of the indicators. Due to IMF’s cross tab (“wide”) data structure, I found it helpful to pivot the data as well as create several new csv files (also in RStudio) pulling resulting in one entry per indicator per country. As such for 2023, I created six csv files as follows: (1) explicit fossil fuel subsidies by country in USD at constant 2021 prices; (2) explicit fossil fuel subsidies by country in percent of GDP; (3) implicit fossil fuel subsidies by country in USD at constant 2021 prices; (4) implicit fossil fuel subsidies by country in percent of GDP; (5) total fossil fuel subsidies by country in percent of GDP; (6) total fossil fuel subsidies by country in percent of GDP. Although my final analysis only visualized the last two csv files (which are subsets of the same original data file!) I found this granularity highly instructive as a researcher searching for trends and investigating hypotheses. </p>
+	
+	<p>Now that I had established the extent of the analysis, prepared the data, and familiarized myself with the transformed data set, I moved to Tableau to create visualizations. The following visualizations were created in Tableau (pulling from MapBox and Open Street Map) with post-production in Illustrator. </p>
 </section>
 
-    <h2>Data-Informed Proposition: High-income countries are responsible for more fossil fuel subsidies.</h2>
+    
 
 		<section>
+			<h2>Data-Informed Proposition: High-income countries are responsible for more fossil fuel subsidies.</h2>
       <h3>Visualization Affirming the Proposition</h3>
+	  <p>Through my contextual grounding and data analysis, I was interested in responding to the following proposition: High-income countries are responsible for more fossil fuel subsidies. </p>
 
       <figure>
 				<img src="images/price_2.jpg" alt="" 
 				style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
 				<figcaption>
-					BRIEF CAPTION HERE.
+					"Total Fossil Fuel Subsidies by Country (USD at Constant 2021 Prices)" prepared in Tableau.
 				</figcaption>
 			</figure>
 
-			<p>
-				Design Decisions and Rationale:
-			</p>
+			<h3>Design Decisions and Rationale</h3>
 
-			<ul>
-				<li>RATIONALE_1</li>
-				<li>RATIONALE_2</li>
-				<li>RATIONALE_3</li>
-				<li>RATIONALE 4</li>
-				<li>RATIONALE 5</li>
-			</ul>
+			<ol>
+				<li>For the purposes of visualization, I defined high-income as “High-income countries” (HI) countries and “Upper-middle-income countries” (UMI). (-2)
+					<ul>
+						<li>There is no universal, precise definition of “high-income,” and I took advantage of this to make a more compelling visualization. By including both HI and UMI countries as defined by the World Bank, I visualized a nearly one-to-one relationship between all countries with sizable fossil fuel emission and income. There are some notable exceptions at a glance (e.g., India has sizable fossil fuel subsidies and is not defined as high-income by this definition), but overall, the strategy was compelling. Defining high-income in this way also allowed me to include China in those countries which would be visualized in color. China is the largest circle on the map (meaning it has the largest amount of fossil fuel subsidies) and I felt it would make my argument weaker to not be able to visualize it in color.</li>
+					</ul>
+				</li>
+				<li>I represented HI and UMI countries’ fossil fuel subsidies in red, with “lower-middle-income countries” (LMI) and “low-income-countries” (LI) in grey. (-1)
+					<ul>
+						<li>I purposefully employed a color scheme that would emphasize those bubbles correlating with HI and UMI countries. More than that, I chose red to represent the high-income definition. Psychologically, red has very strong connotations, spanning a spectrum from love to power to anger to violence. Red may also be connoted with danger, warning, and energy. As such, I tried to play on a viewer’s emotionality in making connections between state-sponsored capital flows to fossil fuel companies and the environmental degradation these companies are realizing. I also chose a grey color that practically blended in with its background when overlaid on the MapBox styling.</li>
+					</ul>
+				</li>
+				<li>Working from a dataset that had both values, I visualized total fossil fuel subsidies by country in absolute amount (prices) as opposed to portion of GDP (percent). (-0.5)
+					<ul>
+						<li>Based on my analysis and exploratory visualization, the trend incriminating wealthy countries in fossil fuel subsidies was better represented working in amount spent (prices) as opposed to portion of GDP spent (percent). The data expressed in percent had a sort of normalizing effect that de-emphasized the absolute intensity of financial flows from wealthier countries to fossil fuel companies by speaking the common language of relative percent. With this visualization, I was interested in drawing attention to the absolute amounts. After all, the climate crisis knows no borders, and ultimately wealthy countries’ support of fossil fuels and resulting emissions will be felt globally (with devastation for already vulnerable communities).</li>
+					</ul>
+				</li>
+				<li>I ordered the legend to begin with HI countries and increased the size of the bubbles relative to the second visualization (styling for bubbles). (-1)
+					<ul>
+						<li>The intentional decision to use red was made more poignant by decisions around styling the bubbles themselves. By grouping HI and UMI countries together and increasing the size of bubbles, I was able to create the visual effect of bubbles overlapping or bleeding into one another. This sends strong signals about trends to the viewer and creates the impression of everything blending under such a trend. I also ordered the “World Bank Income Classification” portion of the legend such that HI would be on top (for subconscious hierarchy) but also so that the high-income country bubbles would physically supersede the low-income country bubbles. While there are some notable exceptions to the general trend (e.g., India as a large uncolored circle or Norway, Sweden, and Finland as small colored circles) this generally creates a strong and consistent impression.</li>
+					</ul>
+				</li>
+				<li>I presented this visualization in a manner likely familiar to the viewer, as a map with north facing upwards. (0)
+					<ul>
+						<li>I went back and forth on what score to assign this design choice! Ultimately, I decided to use a 0 because my design impulses were simultaneously earnest and deceptive. Designing this map “north up” retains autonomy for the viewer because this is the way that we are used to consuming geospatial visualizations. This means someone consuming this visualization does not have to encode new or different meaning because the map has been rendered in a less conventional manner. On the other hand, this allows me to play on a viewers’ conscious and subconscious conceptions of Global North. Global North is a fuzzy, at times problematic, and geographically unspecific designation often used to make sweeping generalizations about the “developed” and “developing” worlds. While I am not the biggest supporter of this binary, I do believe the dynamics of a Global North narrative (with the treatment of China as an interesting outlier) support making the visualization stronger.</li>
+					</ul>
+				</li>
+			</ol>
+			
     </section>
 
     <section>
@@ -99,28 +208,51 @@
 		<img src="images/percent.jpg" alt="" 
 		style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
 		<figcaption>
-			BRIEF CAPTION HERE.
+			"Total Fossil Fuel Subsidies by Country (as % of FY2023 GDP)" prepared in Tableau.
 		</figcaption>
 	</figure>
 
-			<p>
-				Design Decisions and Rationale:
-			</p>
+	<h3>Design Decisions and Rationale</h3>
 
+	<ol>
+		<li>For the purposes of visualization, I defined high-income as “High-income countries” (HI) countries only. (-1)
 			<ul>
-				<li>RATIONALE_1</li>
-				<li>RATIONALE_2</li>
-				<li>RATIONALE_3</li>
-				<li>RATIONALE 4</li>
-				<li>RATIONALE 5</li>
+				<li>As opposed to the first map, I chose to narrow the scope of what was defined as high-income for the purposes of visualization. My goal was to de-emphasize some of the wealthiest global countries by normatively shrinking the number of countries that would be so included. I considered keeping the designation the same as in the first visualization but felt that my color choices (explained below) were more cohesive and supportive of this argument if each of the four World Bank Income Classification variables were represented separately.</li>
 			</ul>
+		</li>
+		<li>I represented countries in varying shades of red, as a gradient that was darkest for “low-income countries” (LI) and lightest for “high-income countries” (HI). (-1.5)
+			<ul>
+				<li>The decision to use graduated symbology was very intentional here, and I believe ultimately deceptive in favor of opposing the proposition. The darkening of color is a visual cue to viewers that an indicator is intensifying/increasing. This, combined with the psychological effects of rendering in red, served the purpose of directing a viewer’s attention to the low-income countries. I debated rendering HI countries in grey (as done with LMI and LI countries in the first visualization) but this felt incoherent to the graduated symbology representation.</li>
+			</ul>
+		</li>
+		<li>Working from a dataset that had both values, I visualized total fossil fuel subsidies by country in portion of GDP (percent) as opposed to absolute amount (prices). (-0.5)
+			<ul>
+				<li>Based on my analysis and exploratory visualization, the trend incriminating lower-income countries in fossil fuel subsidies was better represented working in portion of GDP spent (percent) than amount spent (prices). By working in percents, I chose to exploit the normalizing effect of de-emphasizing the absolute intensity of financial flows from wealthier countries to fossil fuel companies (by virtue of their having larger economies).</li>
+			</ul>
+		</li>
+		<li>I ordered the legend to begin with LI countries and decreased the size of the bubbles relative to the first visualization (styling for bubbles). (-1.5)
+			<ul>
+				<li>For this visualization, I ordered the legend with low-income countries on top, gradually increasing to high-income countries. Again, I wanted to create hierarchy implying that low-income countries had a greater quantity as well as order the bubbles so that those of darker colors physically superseded those of lighter colors. Unlike the last visualization, it is not necessarily that all of the darker/colored dots are also the larger ones, and so I had to get creative to try to coax the viewer into the outcome that I wanted them to discern. Color, therefore, became my primary tool for drawing attention (as opposed to the combination of color and size). This is a subtle difference but nonetheless an important one for discerning between the two maps. There are, of course, a few notable exceptions of high-income countries that stand out by means of being larger dots with higher percentages of total fossil fuel subsidies (e.g., Ukraine).</li>
+			</ul>
+		</li>
+		<li>I presented this visualization in a manner likely unfamiliar to the viewer, as a map with south facing upwards. (-1)
+			<ul>
+				<li>I strongly debated whether to move ahead with this visualization idea, but in the end my curiosity got the best of me! I have seen subversive mapping techniques in the past, which challenged and invited viewers to flip their conception of global spatialization literally on its head. This vantage point, in combination with the design choices that I used to draw viewers’ attention to the red dots (LIs), was my idea of challenging conceptions of Global North and Global South. Of course this does not align perfectly (as even the north-side-up conceptualization of Global North and South are not strictly geographical conventions).</li>
+			</ul>
+		</li>
+	</ol>
+	<p>Note: Ultimately, the United States and other “developed countries” grew rich from capitalist materials extraction and environmental and human degradation as a means of shoring up military, agricultural, and material power. I do not like perpetuating a narrative of incriminating Global South countries for now looking to increase per capita income and general economic well-being for their residents by doing the same thing. This feels like a highly hypocritical narrative. However, in the instance of the second visualization, I do believe that it made for a more compelling visual story.</p>
     </section>
 
     <section>
       <h2>Final Reflection</h2>
 
-      <p>[WRITE FINAL REFLECTION PARAGRAPHS HERE.]</p>
-    </section>
+      <p>Although I undertook this analysis on a topic on which I have firm and unwavering convictions, it was highly interesting to have to argue for and against high-income countries’ implication in fossil fuel subsidies as relative to low-income countries. I enjoyed familiarizing myself with the datasets for this assignment, and I believe they will be highly useful to my future analyses.  </p>
+	 
+	  <p>Ultimately, this activity has left me with a sober understanding of data visualization. Applying a critical lens to the role of the data analyst (or the storyteller, activist, researcher, etc. who is presenting the information) is necessary to being a smart consumer of visualizations. Data visualization is a language, and just as there are different ways to express similar but different thoughts through the subtle conventions of embodied language (tone, diction, emphasis, even body language) there are too diverging ways to tell a data story depending on what you hope a person’s final takeaway might be. </p>
+    
+	  <p>My definition of “ethical analysis and visualization” has become more complicated. I believe more than ever that transparency (through metadata, narrative accompaniment, clear sourcing, etc.) is critical. More than this, I am left questioning to what degree it is important to know the personal, philosophical, or ideological leanings of a data author/storyteller/analyst. I was very surprised at just how different I was able to make the data appear through relatively minor shifts in categorization, coloring, and size. As such, it was difficult to distinguish between acceptable and misleading choices as I recognize that I am a biased actor compiling this research. As such, I think the most ethical pathway is to employ the data consumer with your logic and sources in a facilitated manner and let them decide if and how they would come to similar (or distinct!) conclusions. </p>
+	</section>
 	</main>
 </body>
 </html>
